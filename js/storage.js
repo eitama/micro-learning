@@ -14,7 +14,7 @@ const STORAGE_KEYS = {
 
 const DEFAULT_STATE = {
   apiKey: '',
-  researchModel: 'gemini-3.8-flash',
+  researchModel: 'gemini-3.5-flash',
   thinkingLevel: 'high',
   liveModel: 'gemini-3.8-live',
   voiceName: 'Aoede',

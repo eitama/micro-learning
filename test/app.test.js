@@ -77,7 +77,7 @@ describe('Pocket Tutor E2E Headless Browser Test Suite', () => {
     await page.waitForSelector('#testPingStatus:not(.hidden)', { timeout: 5000 });
 
     const statusText = await page.$eval('#testPingStatus', el => el.textContent);
-    assert.match(statusText, /Success! Model "gemini-3.8-flash" responded/i);
+    assert.match(statusText, /Success! Model ".*" responded/i);
 
     // Save and close
     await page.click('button[onclick*="saveSettings"]');

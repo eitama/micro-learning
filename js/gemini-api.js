@@ -121,6 +121,15 @@ export class GeminiAgent1 {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(makePayload(false))
         });
+      } else if (res.status === 503 && model === 'gemini-3.8-flash') {
+        // Automatic high-demand fallback for temporary 503 spikes on 3.8-flash
+        console.warn('gemini-3.8-flash returned 503 high demand spike. Falling back to gemini-3.5-flash...');
+        const fallbackUrl = baseUrl.replace('gemini-3.8-flash', 'gemini-3.5-flash');
+        res = await fetch(fallbackUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(makePayload(false))
+        });
       }
 
       if (!res.ok) {
@@ -173,9 +182,15 @@ export class GeminiAgent1 {
         message: `Success! Model "${settings.researchModel}" responded:\n"${res.text.slice(0, 120)}..."`
       };
     } catch (e) {
+      let friendlyMsg = e.message;
+      if (e.message.includes('503') || e.message.includes('high demand') || e.message.includes('UNAVAILABLE')) {
+        friendlyMsg = `Google's "${settings.researchModel}" is currently overloaded on Google's servers (HTTP 503: High Demand Spikes).\n\n💡 Tip: In the Agent 1 box above, select "gemini-3.5-flash" (or "gemini-3-flash-preview") for high-availability responses, then click Save.`;
+      } else if (e.message.includes('429')) {
+        friendlyMsg = `Quota limit reached (HTTP 429). Please verify your Google AI Studio plan and rate limits.`;
+      }
       return {
         ok: false,
-        message: e.message
+        message: friendlyMsg
       };
     }
   }
