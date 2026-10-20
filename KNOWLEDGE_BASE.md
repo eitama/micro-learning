@@ -50,6 +50,7 @@ flowchart TD
 
 ### Services & Infrastructure Inventory
 - **GitHub Repository:** `https://github.com/eitama/micro-learning`
+- **Git SSH Remote:** `git@github-eitama:eitama/micro-learning.git` (uses `~/.ssh/id_ed25519_eitama` via `~/.ssh/config`)
 - **Live Production URL:** `https://eitama.github.io/micro-learning/`
 - **Default Branch:** `master`
 
