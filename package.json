@@ -1,0 +1,20 @@
+{
+  "name": "micro-learning",
+  "version": "1.0.0",
+  "description": "Pocket Tutor 3.8 — Mobile-first, zero-build PWA for personalized micro-learning backed by dual-agent Gemini 3.8 Flash & Live.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "serve": "node -e \"const http=require('http'),fs=require('fs'),path=require('path');http.createServer((req,res)=>{const p=path.join(__dirname,req.url==='/'?'index.html':req.url);fs.readFile(p,(e,d)=>{if(e){res.writeHead(404);res.end('Not found');}else{res.writeHead(200,{'Content-Type':p.endsWith('.js')?'application/javascript':'text/html'});res.end(d);}})}).listen(8080,()=>console.log('Serving on http://localhost:8080'));\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eitama/micro-learning.git"
+  },
+  "author": "Eitam Doodai",
+  "license": "MIT",
+  "devDependencies": {
+    "puppeteer-core": "^24.4.0",
+    "ws": "^8.18.0"
+  }
+}
